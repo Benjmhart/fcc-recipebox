@@ -1,15 +1,19 @@
-.App {
-  text-align: center; }
+.Root {
+  height: 100vh; }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px; }
+.App {
+  text-align: center;
+  height: 100vh; }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  background-color: darkgreen;
+  height: 10vh;
   color: white; }
+  .App-header h1 {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0; }
 
 .App-title {
   font-size: 1.5em; }
@@ -17,8 +21,61 @@
 .App-intro {
   font-size: large; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
+.container {
+  height: 90vh;
+  display: flex; }
+
+.sidebar {
+  width: 20vw;
+  /* Set the width of the sidebar */
+  position: relative;
+  /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1;
+  /* Stay on top */
+  top: 0;
+  /* Stay at the top */
+  left: 0;
+  text-align: left;
+  padding-left: 20px;
+  background-color: #9c9c9c;
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 20px; }
+
+.addbtn, .savebtn, .discardbtn {
+  margin-left: 30px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px; }
+
+.addbtn:hover, .savebtn:hover, .discardbtn:hover {
+  background-color: #61e865; }
+
+.rembtn {
+  border-radius: 100%;
+  border-style: none;
+  background-color: #c9c9c9; }
+
+.rembtn:hover {
+  background-color: #f75969;
+  color: white; }
+
+.discardbtn {
+  background-color: #f75969; }
+
+.discardbtn:hover {
+  background-color: #ed283c; }
+
+.display {
+  flex-grow: 2; }
+
+.recbody {
+  margin-top: 5vh;
+  margin-left: 10vw;
+  text-align: left; }
