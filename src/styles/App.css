@@ -26,7 +26,7 @@
   display: flex; }
 
 .sidebar {
-  width: 20vw;
+  width: 30vw;
   /* Set the width of the sidebar */
   position: relative;
   /* Fixed Sidebar (stay in place on scroll) */
@@ -42,7 +42,7 @@
   /* Disable horizontal scroll */
   padding-top: 20px; }
 
-.addbtn, .savebtn, .discardbtn {
+.addbtn, .savebtn, .discardbtn, .changebtn {
   margin-left: 30px;
   background-color: #4caf50;
   border: none;
@@ -54,7 +54,7 @@
   font-size: 16px;
   border-radius: 8px; }
 
-.addbtn:hover, .savebtn:hover, .discardbtn:hover {
+.addbtn:hover, .savebtn:hover, .discardbtn:hover, .changebtn:hover {
   background-color: #61e865; }
 
 .rembtn {
@@ -66,11 +66,14 @@
   background-color: #f75969;
   color: white; }
 
-.discardbtn {
+.discardbtn, .changebtn {
   background-color: #f75969; }
 
-.discardbtn:hover {
+.discardbtn:hover, .changebtn:hover {
   background-color: #ed283c; }
+
+.changebtn {
+  padding: 4px; }
 
 .display {
   flex-grow: 2; }

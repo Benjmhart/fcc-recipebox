@@ -33,7 +33,7 @@ $red: #f75969;
   display: flex;
 }
 .sidebar {
-  width: 20vw; /* Set the width of the sidebar */
+  width: 30vw; /* Set the width of the sidebar */
   position: relative; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -82,6 +82,11 @@ $red: #f75969;
 }
 .discardbtn:hover {
   background-color: #ed283c;
+}
+
+.changebtn {
+  @extend .discardbtn;
+  padding: 4px;
 }
 
 .display {
