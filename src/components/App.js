@@ -7,8 +7,8 @@ import "../../node_modules/font-awesome/css/font-awesome.min.css";
 class App extends Component {
   constructor() {
     super();
-    this.getRecipies = this.getRecipies.bind(this);
-    this.setRecipies = this.setRecipies.bind(this);
+    this.getRecipes = this.getRecipes.bind(this);
+    this.setRecipes = this.setRecipes.bind(this);
     this.iterate = this.iterate.bind(this);
     this.makeCurrent = this.makeCurrent.bind(this);
     this.makeEdit = this.makeEdit.bind(this);
@@ -63,11 +63,38 @@ class App extends Component {
           type: 1
         }
       ],
-      current: { name: "Click to Add Name", ingredients: [], steps: [], type: 1, editing: false }
+      current: {
+        name: "Click to Add Name",
+        ingredients: [],
+        steps: [],
+        type: 1,
+        editing: false
+      }
     };
   }
-  getRecipies() { }
-  setRecipies() { }
+
+  componentDidMount() {
+    this.getRecipes();
+  }
+
+  getRecipes() {
+    const newthing = localStorage.getItem("recipes");
+    if (newthing) {
+      const parsedthing = JSON.parse(newthing);
+      console.log(parsedthing);
+      const arraything = Object.values(parsedthing);
+      console.log(arraything);
+      this.setState(prevstate => {
+        const newstate = { ...prevstate };
+        newstate.recipes = arraything;
+        return newstate;
+      });
+    }
+  }
+
+  setRecipes() {
+    localStorage.setItem("recipes", JSON.stringify({ ...this.state.recipes }));
+  }
 
   makeCurrent(index, parent) {
     if (parent !== "recipes") return;
@@ -88,17 +115,30 @@ class App extends Component {
   }
 
   makeEdit(type, index) {
-    console.log(`you're trying to edit a property of type ${type} and index ${index}`)
+    console.log(
+      `you're trying to edit a property of type ${type} and index ${index}`
+    );
     if (type === 1) {
-      this.setState(prevState => prevState.current.editing = true)
+      this.setState(prevState => {
+        const newState = { ...prevState };
+        newState.current.editing = true;
+        return newState;
+      });
     }
     if (type === 2) {
-      this.setState(prevState => prevState.current.ingredients[index].editing = true);
+      this.setState(prevState => {
+        const newState = { ...prevState };
+        newState.current.ingredients[index].editing = true;
+        return newState;
+      });
     }
     if (type === 3) {
-      this.setState(prevState => prevState.current.steps[index].editing = true);
+      this.setState(prevState => {
+        const newState = { ...prevState };
+        newState.current.steps[index].editing = true;
+        return newState;
+      });
     }
-
   }
 
   changeHandle(e, type, index) {
@@ -107,7 +147,7 @@ class App extends Component {
     console.log(e.target.value);
     if (type === 1) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.current.name = e.target.value;
         newstate.current.editing = false;
         return newstate;
@@ -115,7 +155,7 @@ class App extends Component {
     }
     if (type === 2) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.current.ingredients[index].name = e.target.value;
         newstate.current.ingredients[index].editing = false;
         return newstate;
@@ -123,7 +163,7 @@ class App extends Component {
     }
     if (type === 3) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.current.steps[index].name = e.target.value;
         newstate.current.steps[index].editing = false;
         return newstate;
@@ -132,20 +172,19 @@ class App extends Component {
   }
 
   addIngredStep(type) {
-    console.log(`you're trying to add an ingredient or step of type ${type}`)
+    console.log(`you're trying to add an ingredient or step of type ${type}`);
     if (type === 2) {
-
       this.setState(prevState => {
-        const newThing = { name: "addName", type: 2, editing: true }
-        const newstate = { ...prevState }
+        const newThing = { name: "addName", type: 2, editing: true };
+        const newstate = { ...prevState };
         newstate.current.ingredients.push(newThing);
         return newstate;
-      })
+      });
     }
     if (type === 3) {
       this.setState(prevState => {
-        const newThing = { name: "addName", type: 3, editing: true }
-        const newstate = { ...prevState }
+        const newThing = { name: "addName", type: 3, editing: true };
+        const newstate = { ...prevState };
         newstate.current.steps.push(newThing);
         return newstate;
       });
@@ -153,11 +192,22 @@ class App extends Component {
   }
   save() {
     this.setState(prevState => {
-      const newstate = { ...prevState }
-      newstate.recipes.push(this.state.current);
+      const newstate = { ...prevState };
+      let flag = false;
+      newstate.recipes.forEach((recipe, index) => {
+        if (recipe.name === prevState.current.name) {
+          newstate.recipes[index] = { ...prevState.current };
+
+          flag = true;
+        }
+      });
+      if (flag === false) {
+        newstate.recipes.push({ ...prevState.current });
+      }
       return newstate;
-    })
+    });
     this.makeCurrent(-1, "recipes");
+    this.setRecipes();
   }
 
   iterate(list, parent) {
@@ -167,7 +217,7 @@ class App extends Component {
         index={index}
         parent={parent}
         makeCurrent={this.makeCurrent}
-        key={index}
+        key={listItem.name}
         makeEdit={this.makeEdit}
         changeHandle={this.changeHandle}
         remover={this.remover}
@@ -178,25 +228,26 @@ class App extends Component {
   remover(type, index) {
     if (type === 1) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.recipes.splice(index, 1);
         return newstate;
       });
     }
     if (type === 2) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.current.ingredients.splice(index, 1);
         return newstate;
       });
     }
     if (type === 3) {
       this.setState(prevState => {
-        const newstate = { ...prevState }
+        const newstate = { ...prevState };
         newstate.current.steps.splice(index, 1);
         return newstate;
       });
     }
+    this.setRecipes();
   }
 
   render() {
