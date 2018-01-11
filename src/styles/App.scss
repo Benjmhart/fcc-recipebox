@@ -106,9 +106,8 @@ $red: #f75969;
   transform: translateX(0);
 }
 .display-leave{
-  transition: all 1.5s;
-  transform: translateY(0);
+  display: none;
 }
 .display-leave-active{
-  transform: translateY(120%);
+   display: none;
 }
