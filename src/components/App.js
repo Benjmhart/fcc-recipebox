@@ -78,7 +78,8 @@ class App extends Component {
   }
 
   getRecipes() {
-    const newthing = localStorage.getItem("recipes");
+    console.log('getRecipies called')
+    const newthing = window.localStorage.getItem("recipes");
     if (newthing) {
       const parsedthing = JSON.parse(newthing);
       console.log(parsedthing);
@@ -93,7 +94,10 @@ class App extends Component {
   }
 
   setRecipes() {
-    localStorage.setItem("recipes", JSON.stringify({ ...this.state.recipes }));
+    console.log('setRecipes called')
+    window.localStorage.removeItem("recipes");
+    setTimeout(() => window.localStorage.setItem("recipes", JSON.stringify({ ...this.state.recipes })),500)
+    ;
   }
 
   makeCurrent(index, parent) {
