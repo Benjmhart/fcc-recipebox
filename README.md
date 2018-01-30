@@ -1,1 +1,1 @@
-### this is a Recipe box project for FreeCodeCamp
+### This is a Recipe Box project for FreeCodeCamp
